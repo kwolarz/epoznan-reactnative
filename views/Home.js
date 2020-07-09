@@ -1,56 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
-  Text,
   StyleSheet,
   FlatList,
   Image,
   ScrollView,
   Dimensions,
-  BackHandler,
-  Alert,
+  RefreshControl,
 } from 'react-native';
 import Element from '../components/articleElement.js';
+import BigElement from '../components/homeArticleElement.js';
 
 const {width} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
-  const {container, imageS, view} = styles;
+  const {container, imageS} = styles;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [text, setText] = useState(['', '', '']);
-
+  const [refreshing, setRefreshing] = useState(false);
+  
   useEffect(() => {
     fetch('http://epoznan.herokuapp.com/home')
       .then(response => response.json())
-      .then(json => {
-        setData(json);
-        setText(json.middlePosts);
-      })
+      .then(json => setData(json))
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
+  function getData () {
+    fetch('http://epoznan.herokuapp.com/home')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error))
+      .finally(() => setLoading(false));
+      console.log(data);
+  };
+  
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getData();
+    setRefreshing(false);
   }, []);
 
   return (
@@ -58,12 +49,15 @@ const Home = ({navigation}) => {
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <ScrollView>
+        <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
           <Image style={imageS} source={require('../assets/epoznan.png')} />
           <ScrollView
-            ref={scrollView => {
-              this.scrollView = scrollView;
-            }}
+            // ref={scrollView2 => {
+            //   this.scrollView = scrollView2;
+            // }}
             style={{}}
             horizontal={true}
             decelerationRate={'fast'}
@@ -76,9 +70,27 @@ const Home = ({navigation}) => {
               bottom: 0,
               right: 30,
             }}>
-            <Image style={view} source={{uri: text[0].imgUrl}} />
-            <Image style={view} source={{uri: text[1].imgUrl}} />
-            <Image style={view} source={{uri: text[2].imgUrl}} />
+            <BigElement
+              imgUrl={data.middlePosts[0].imgUrl}
+              title={data.middlePosts[0].title}
+              url={data.middlePosts[0].url}
+              update={data.middlePosts[0].update}
+              navigation={navigation}
+            />
+            <BigElement
+              imgUrl={data.middlePosts[1].imgUrl}
+              title={data.middlePosts[1].title}
+              url={data.middlePosts[1].url}
+              update={data.middlePosts[1].update}
+              navigation={navigation}
+            />
+            <BigElement
+              imgUrl={data.middlePosts[2].imgUrl}
+              title={data.middlePosts[2].title}
+              url={data.middlePosts[2].url}
+              update={data.middlePosts[2].update}
+              navigation={navigation}
+            />
           </ScrollView>
 
           <FlatList
@@ -109,20 +121,7 @@ const styles = StyleSheet.create({
   imageS: {
     width: 120,
     height: 30,
-    marginLeft: 20,
-    
-  },
-  view: {
-    marginTop: 10,
-    backgroundColor: 'blue',
-    width: width - 80,
-    margin: 10,
-    height: 200,
-    borderRadius: 10,
-    //borderWidth: 1,
-    borderColor: 'black',
-
-    //paddingHorizontal : 30
+    marginLeft: width / 2 - 60,
   },
 });
 
