@@ -8,6 +8,8 @@ import {
   ScrollView,
   Dimensions,
   RefreshControl,
+  View,
+  Text
 } from 'react-native';
 import Element from '../components/articleElement.js';
 import BigElement from '../components/homeArticleElement.js';
@@ -15,7 +17,7 @@ import BigElement from '../components/homeArticleElement.js';
 const {width} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
-  const {container, imageS} = styles;
+  const {container, imageS, moreArticles} = styles;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -106,6 +108,10 @@ const Home = ({navigation}) => {
               />
             )}
           />
+
+          <View style={moreArticles}>
+            <Text>Zobacz więcej</Text>
+          </View>
         </ScrollView>
       )}
     </SafeAreaView>
@@ -122,6 +128,11 @@ const styles = StyleSheet.create({
     width: 120,
     height: 30,
     marginLeft: width / 2 - 60,
+  },
+
+  moreArticles: {
+    width: '100%',
+    height: 120,
   },
 });
 
