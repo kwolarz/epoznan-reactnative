@@ -15,11 +15,19 @@ import {
 import Element from '../components/articleElement.js';
 import BigElement from '../components/homeArticleElement.js';
 import WeatherElement from '../components/weatherElement.js';
+import MovieElement from '../components/movieElement.js';
+
 
 const {width} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
-  const {container, imageS, moreArticles, sectionTitle, moreArticlesButton,} = styles;
+  const {
+    container,
+    imageS,
+    moreArticles,
+    sectionTitle,
+    moreArticlesButton,
+  } = styles;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -45,11 +53,11 @@ const Home = ({navigation}) => {
     setRefreshing(true);
     getData();
     setRefreshing(false);
-    console.log(data.weatherIcon)
+    console.log(data.weatherIcon);
   }, []);
 
   const onMoreArticlesButtonClick = () => {
-    navigation.navigate('Tag', {
+    navigation.push('Tag', {
       tagName: 'wiadomości',
       tagID: '0',
       navigation: navigation,
@@ -107,8 +115,14 @@ const Home = ({navigation}) => {
 
           <Text style={sectionTitle}>Dziś w Poznaniu</Text>
           <WeatherElement
-            title={data.weatherTemperature}
-            imgUrl={data.weatherIcon}
+            temperatureIcon={data.temperatureIcon}
+            temperatureCurrent={data.temperatureCurrent}
+            temperatureMin={data.temperatureMin}
+            rain={data.rain}
+            wind={data.wind}
+            airIcon={data.airIcon}
+            airQuality={data.airQuality}
+            airState={data.airState}
           />
 
           <Text style={sectionTitle}>Najnowsze</Text>
@@ -126,11 +140,26 @@ const Home = ({navigation}) => {
               />
             )}
           />
-          <TouchableOpacity style={moreArticlesButton} onPress={onMoreArticlesButtonClick}>
+          <TouchableOpacity
+            style={moreArticlesButton}
+            onPress={onMoreArticlesButtonClick}>
             <View style={moreArticles}>
               <Text style={{color: '#004F8D'}}>Więcej wiadomości</Text>
             </View>
           </TouchableOpacity>
+
+          <Text style={sectionTitle}>W kinie</Text>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={data.inCinema}
+            keyExtractor={({id}, index) => id}
+            renderItem={({item}) => (
+              < MovieElement imgUrl={item.imgUrl} />
+            )}
+          />
+
+          <Text style={sectionTitle}>Kalendarium</Text>
         </ScrollView>
       )}
     </SafeAreaView>
@@ -168,7 +197,7 @@ const styles = StyleSheet.create({
 
   moreArticlesButton: {
     paddingHorizontal: 10,
-    paddingBottom: 10,
+    //paddingBottom: 10,
     width: '40%',
     alignSelf: 'flex-end',
   },

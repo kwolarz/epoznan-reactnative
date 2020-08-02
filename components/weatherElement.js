@@ -22,22 +22,23 @@ const WeatherElement = props => {
             width="50"
             height="50"
             style={weatherIcon}
-            source={{uri: props.imgUrl}}
+            //uri={props.temperatureIcon}
+            source={{uri: props.temperatureIcon}}
           />
           <View style={temperatureData}>
             <View style={temperature}>
-              <Text style={currentTemperatureText}>{props.title}</Text>
-              <Text style={currentTemperatureText}>14℃</Text>
+              <Text style={currentTemperatureText}>{props.temperatureCurrent}</Text>
+  <Text style={currentTemperatureText}>{props.temperatureMin}</Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11}}>Opady: </Text>
-              <Text style={{fontSize: 11}}>0 mm</Text>
+  <Text style={{fontSize: 11}}>{props.rain}</Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11}}>Wiatr do: </Text>
-              <Text style={{fontSize: 11}}>{'12 km/h'}</Text>
+              <Text style={{fontSize: 11}}>{props.wind}</Text>
             </View>
           </View>
         </View>
@@ -61,7 +62,7 @@ const WeatherElement = props => {
             width="50"
             height="50"
             style={weatherIcon}
-            source={{uri: 'https://epoznan.pl/new_assets/img/air-condition/5.svg'}}
+            source={{uri:props.airIcon}}
           />
 
           <View style={temperatureData}>
@@ -70,12 +71,12 @@ const WeatherElement = props => {
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>PM2.5  </Text>
-              <Text style={{fontSize: 11}}>8.58 μg/m3</Text>
+              <Text style={{fontSize: 11}}>PM2.5 </Text>
+              <Text style={{fontSize: 11}}>{props.airQuality}</Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>Bardzo dobry</Text>
+              <Text style={{fontSize: 11}}>{props.airState}</Text>
             </View>
           </View>
         </View>
