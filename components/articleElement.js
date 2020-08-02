@@ -8,7 +8,7 @@ const Element = props => {
     imageStyle,
     publishDateStyle,
     titleStyle,
-    touchContainer
+    touchContainer,
   } = styles;
 
   const onElementClick = () => {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     backgroundColor: 'white',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   textViewStyle: {
     paddingRight: 10,
@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
   titleStyle: {
     marginTop: 1,
     fontSize: 18,
-    fontFamily: 'Proxima Nova Bold'
+    fontFamily: 'ProximaNova-Bold',
   },
   publishDateStyle: {
     alignSelf: 'flex-start',
     //paddingRight: 5,
     padding: 1,
     paddingBottom: 3,
-    fontFamily: 'Proxima Nova Alt Light',
+    fontFamily: 'ProximaNovaT-Thin', //alt light
     fontSize: 14,
   },
   imageStyle: {

@@ -9,19 +9,21 @@ import {
   Dimensions,
   RefreshControl,
   View,
-  Text
+  Text,
+  TouchableOpacity,
 } from 'react-native';
 import Element from '../components/articleElement.js';
 import BigElement from '../components/homeArticleElement.js';
+import WeatherElement from '../components/weatherElement.js';
 
 const {width} = Dimensions.get('window');
 
 const Home = ({navigation}) => {
-  const {container, imageS, moreArticles} = styles;
+  const {container, imageS, moreArticles, sectionTitle, moreArticlesButton,} = styles;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  
+
   useEffect(() => {
     fetch('http://epoznan.herokuapp.com/home')
       .then(response => response.json())
@@ -30,21 +32,29 @@ const Home = ({navigation}) => {
       .finally(() => setLoading(false));
   }, []);
 
-
-  function getData () {
+  function getData() {
     fetch('http://epoznan.herokuapp.com/home')
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
-      console.log(data);
-  };
-  
+    console.log(data);
+  }
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     getData();
     setRefreshing(false);
+    console.log(data.weatherIcon)
   }, []);
+
+  const onMoreArticlesButtonClick = () => {
+    navigation.navigate('Tag', {
+      tagName: 'wiadomości',
+      tagID: '0',
+      navigation: navigation,
+    });
+  };
 
   return (
     <SafeAreaView style={container}>
@@ -52,9 +62,9 @@ const Home = ({navigation}) => {
         <ActivityIndicator />
       ) : (
         <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <Image style={imageS} source={require('../assets/epoznan.png')} />
           <ScrollView
             // ref={scrollView2 => {
@@ -95,8 +105,16 @@ const Home = ({navigation}) => {
             />
           </ScrollView>
 
+          <Text style={sectionTitle}>Dziś w Poznaniu</Text>
+          <WeatherElement
+            title={data.weatherTemperature}
+            imgUrl={data.weatherIcon}
+          />
+
+          <Text style={sectionTitle}>Najnowsze</Text>
+
           <FlatList
-            data={data.leftPosts}
+            data={data.today}
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
               <Element
@@ -108,10 +126,11 @@ const Home = ({navigation}) => {
               />
             )}
           />
-
-          <View style={moreArticles}>
-            <Text>Zobacz więcej</Text>
-          </View>
+          <TouchableOpacity style={moreArticlesButton} onPress={onMoreArticlesButtonClick}>
+            <View style={moreArticles}>
+              <Text style={{color: '#004F8D'}}>Więcej wiadomości</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       )}
     </SafeAreaView>
@@ -131,8 +150,35 @@ const styles = StyleSheet.create({
   },
 
   moreArticles: {
-    width: '100%',
-    height: 120,
+    borderWidth: 0.5,
+    borderColor: '#004F8D',
+    borderRadius: 15,
+    padding: 7,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
+  },
+
+  moreArticlesButton: {
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    width: '40%',
+    alignSelf: 'flex-end',
+  },
+
+  sectionTitle: {
+    fontSize: 27,
+    fontFamily: 'ProximaNova-Bold',
+    paddingLeft: 20,
+    padding: 7,
+    color: '#004F8D',
   },
 });
 

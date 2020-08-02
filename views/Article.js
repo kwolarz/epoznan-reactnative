@@ -14,22 +14,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
-import AutoHeightWebView from 'react-native-autoheight-webview'
+import AutoHeightWebView from 'react-native-autoheight-webview';
 
 var yOffset = -30;
 
 const TagElement = props => {
   const onElementClick = () => {
     console.log(props.tagName);
-    props.navigation.navigate('Tag', {
+    props.navigation.push('Tag', {
       tagName: props.tagName,
       tagID: props.tagID,
+      navigation: props.navigation,
     });
   };
 
-  return(
+  return (
     <TouchableOpacity onPress={onElementClick}>
-      <Text style={styles.tagText} >{props.tagName}</Text>
+      <Text style={styles.tagText}>{props.tagName}</Text>
     </TouchableOpacity>
   );
 };
@@ -56,15 +57,17 @@ const Article = ({route}) => {
     tagList,
   } = styles;
 
-  let JS = '<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
-  let source = JS + '<blockquote class=\"twitter-tweet\" data-lang=\"pl\">&#13;\n\t<p dir=\"ltr\" lang=\"pl\">&#13;\n\t\tPoparcie w okręgach dla <a href=\"https://twitter.com/pisorgpl?ref_src=twsrc%5Etfw\">@pisorgpl</a> na koniec lipca 2018 (zdecydowani wyborcy) <a href=\"https://t.co/tFRfi1pd95\">pic.twitter.com/tFRfi1pd95</a></p>&#13;\n\t— Marcin Palade (@MarcinPalade) <a href=\"https://twitter.com/MarcinPalade/status/1026459290125651968?ref_src=twsrc%5Etfw\">6 sierpnia 2018</a></blockquote>&#13;\n';
+  let JS =
+    '<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
+  let source =
+    JS +
+    '<blockquote class="twitter-tweet" data-lang="pl">&#13;\n\t<p dir="ltr" lang="pl">&#13;\n\t\tPoparcie w okręgach dla <a href="https://twitter.com/pisorgpl?ref_src=twsrc%5Etfw">@pisorgpl</a> na koniec lipca 2018 (zdecydowani wyborcy) <a href="https://t.co/tFRfi1pd95">pic.twitter.com/tFRfi1pd95</a></p>&#13;\n\t— Marcin Palade (@MarcinPalade) <a href="https://twitter.com/MarcinPalade/status/1026459290125651968?ref_src=twsrc%5Etfw">6 sierpnia 2018</a></blockquote>&#13;\n';
   const {screenWidth} = Dimensions.get('window').width;
 
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message:
-          'https://epoznan.pl/' + String(url),
+        message: 'https://epoznan.pl/' + String(url),
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -96,13 +99,23 @@ const Article = ({route}) => {
       {isLoading ? (
         <ActivityIndicator style={{padding: '50%'}} />
       ) : (
-        <ScrollView style={scrollContainer} onScroll={event => { 
-          yOffset = event.nativeEvent.contentOffset.y
-        }}>
+        <ScrollView
+          style={scrollContainer}
+          onScroll={event => {
+            yOffset = event.nativeEvent.contentOffset.y;
+          }}>
           <Image style={topImageStyle} source={{uri: data.topImageURL}} />
-          <TouchableOpacity style={shareButton} onPress={onShare} title="Share" blurEffect={10}>
+          <TouchableOpacity
+            style={shareButton}
+            onPress={onShare}
+            title="Share"
+            blurEffect={10}>
             <View style={{}}>
-              <Image style={shareIcon} source={require('../assets/share1.png')} tintColor="black"/>
+              <Image
+                style={shareIcon}
+                source={require('../assets/share1.png')}
+                tintColor="black"
+              />
             </View>
           </TouchableOpacity>
           <View style={postContainer}>
@@ -172,7 +185,7 @@ const Article = ({route}) => {
               }}
             />
 
-            <FlatList 
+            <FlatList
               style={tagList}
               data={data.tags}
               horizontal={true}
@@ -210,7 +223,7 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 26,
     //padding: 10,
-    fontFamily: 'Proxima Nova Extrabold',
+    fontFamily: 'ProximaNova-Extrabld',
   },
 
   dateContainer: {
@@ -226,7 +239,7 @@ const styles = StyleSheet.create({
 
   descStyle: {
     fontSize: 20,
-    fontFamily: 'Proxima Nova Alt Bold',
+    fontFamily: 'ProximaNova-Bold', //alt bold
   },
 
   textContainer: {
@@ -272,10 +285,10 @@ const styles = StyleSheet.create({
 
   tagText: {
     fontSize: 25,
-    fontFamily: 'Proxima Nova Bold',
+    fontFamily: 'ProximaNova-Bold',
     paddingTop: 12,
     paddingRight: 7,
-    color: '#004F8D'
+    color: '#004F8D',
   },
 
   tagList: {

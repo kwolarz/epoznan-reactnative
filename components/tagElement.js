@@ -10,7 +10,7 @@ import {
 
 const {width} = Dimensions.get('window');
 
-const BigElement = props => {
+const TagElement =  props => {
   const {container, topHalf, imageStyle, bottomHalf, title} = styles;
 
   const onElementClick = () => {
@@ -37,16 +37,15 @@ const BigElement = props => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
     backgroundColor: 'white',
-    width: width - 80,
+    width: width - 20,
     margin: 10,
-    height: 270,
+    height: 300,
     borderRadius: 10,
-    borderWidth: 0.1,
+    borderWidth: 0.5,
     borderColor: 'grey',
 
-    padding: 10,
+    //padding: 10,
 
     shadowColor: '#000',
     shadowOffset: {
@@ -65,7 +64,8 @@ const styles = StyleSheet.create({
   },
 
   imageStyle: {
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: '100%',
     width: '100%',
   },
@@ -73,13 +73,15 @@ const styles = StyleSheet.create({
   bottomHalf: {
     height: '40%',
     paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 
   title: {
-    fontSize: 19,
+    fontSize: 21,
     fontFamily: 'ProximaNova-Bold', //alt bold
     //maxHeight: 95,
   },
 });
 
-export default BigElement;
+export default TagElement;

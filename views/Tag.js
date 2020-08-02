@@ -13,37 +13,52 @@ import {
   Share,
   TouchableOpacity,
 } from 'react-native';
-import BigElement from '../components/homeArticleElement.js';
+import TagElement from '../components/tagElement.js';
 
 const Tag = ({route}) => {
-  const {tagName, tagID, navigation} = route.params;
+  var {tagName, tagID, navigation} = route.params;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const {title, container} = styles;
-  var page = -1;
+  var [page, setPage] = useState(-1);
 
   useEffect(() => {
     fetch('http://epoznan.herokuapp.com/news/' + tagID + '/' + page)
       .then(response => response.json())
       .then(json => {
         console.log(tagName);
-        setData(json);
+        setData(json.articles);
       })
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleMore = () => {
+    setPage(page += 1);
+    
+    fetch('http://epoznan.herokuapp.com/news/' + tagID + '/' + page)
+    .then(response => response.json())
+    .then(json => {
+      //console.log(tagName);
+      var newData = [...data, ...json.articles];
+      setData(newData);
+      console.log(data.length, page);
+    })
+    .catch(error => console.error(error))
+    .finally(() => setLoading(false));
+  }
 
   return (
     <SafeAreaView style={container}>
       <Text style={title}>{tagName}</Text>
 
       <FlatList
-        data={data.articles}
+        data={data}
         style={{}}
         keyExtractor={({id}, index) => id}
         columns={2}
         renderItem={({item}) => (
-          <BigElement
+          <TagElement
             imgUrl={item.imgUrl}
             title={item.title}
             url={item.url}
@@ -51,6 +66,9 @@ const Tag = ({route}) => {
             navigation={navigation}
           />
         )}
+
+        onEndReached={handleMore}
+        onEndReachedThreshold={0.9}
       />
     </SafeAreaView>
   );
@@ -63,7 +81,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 40,
-    fontFamily: 'Proxima Nova Extrabold',
+    fontFamily: 'ProximaNova-Extrabld',
     paddingTop: 30,
     paddingLeft: 10,
   },
