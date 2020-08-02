@@ -12,6 +12,7 @@ import {
   Button,
   Share,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview';
@@ -94,6 +95,7 @@ const Article = ({route}) => {
       .finally(() => setLoading(false));
   }, []);
 
+
   return (
     <SafeAreaView style={container}>
       {isLoading ? (
@@ -171,6 +173,16 @@ const Article = ({route}) => {
               scalesPageToFit={true}
               viewportContent={'width=device-width, user-scalable=no'}
             /> */}
+
+            
+            <FlatList
+              data={data.imagesURL}
+              keyExtractor={({id}, index) => id}
+              renderItem={({item}) => (
+                <Image style={{width: '100%', height: 200, marginTop: 10,}} source={{uri: item.imgUrl}} />
+              )}
+            />
+
             <View
               style={{
                 borderBottomColor: 'grey',
