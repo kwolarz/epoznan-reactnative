@@ -16,9 +16,14 @@ import Element from '../components/articleElement.js';
 import BigElement from '../components/homeArticleElement.js';
 import WeatherElement from '../components/weatherElement.js';
 import MovieElement from '../components/movieElement.js';
+import {useTheme} from '@react-navigation/native';
 
 
 const {width} = Dimensions.get('window');
+
+const navigationOptions = ({navigation}) => ({
+  title: navigation.state.params ? navigation.state.params.title : 'Default Title',
+});
 
 const Home = ({navigation}) => {
   const {
@@ -28,6 +33,7 @@ const Home = ({navigation}) => {
     sectionTitle,
     moreArticlesButton,
   } = styles;
+  const { colors } = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -65,7 +71,7 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={container}>
+    <View style={[container, {backgroundColor: colors.background}]}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -73,7 +79,7 @@ const Home = ({navigation}) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-          <Image style={imageS} source={require('../assets/epoznan.png')} />
+          {/* <Image style={imageS} source={require('../assets/epoznan.png')} /> */}
           <ScrollView
             // ref={scrollView2 => {
             //   this.scrollView = scrollView2;
@@ -148,7 +154,7 @@ const Home = ({navigation}) => {
             </View>
           </TouchableOpacity>
 
-          <Text style={sectionTitle}>W kinie</Text>
+          <Text style={[sectionTitle,]}>W kinie</Text>
           <FlatList
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -162,14 +168,14 @@ const Home = ({navigation}) => {
           <Text style={sectionTitle}>Kalendarium</Text>
         </ScrollView>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
+    //paddingTop: 22,
     backgroundColor: 'white',
   },
   imageS: {

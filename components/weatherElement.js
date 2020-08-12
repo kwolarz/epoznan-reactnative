@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, Image, StyleSheet, View} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import { SvgCssUri } from 'react-native-svg';
 
 const WeatherElement = props => {
   const {
@@ -18,22 +18,24 @@ const WeatherElement = props => {
     <View style={container}>
       <View style={weatherContainer}>
         <View style={temperatureContainer}>
-          <SvgUri
-            width="50"
-            height="50"
+          <SvgCssUri
+            width={50}
+            height={50}
             style={weatherIcon}
-            //uri={props.temperatureIcon}
-            source={{uri: props.temperatureIcon}}
+            uri={props.temperatureIcon}
           />
+          
           <View style={temperatureData}>
             <View style={temperature}>
-              <Text style={currentTemperatureText}>{props.temperatureCurrent}</Text>
-  <Text style={currentTemperatureText}>{props.temperatureMin}</Text>
+              <Text style={currentTemperatureText}>
+                {props.temperatureCurrent}
+              </Text>
+              <Text style={currentTemperatureText}>{props.temperatureMin}</Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11}}>Opady: </Text>
-  <Text style={{fontSize: 11}}>{props.rain}</Text>
+              <Text style={{fontSize: 11}}>{props.rain}</Text>
             </View>
 
             <View style={temperature}>
@@ -58,11 +60,12 @@ const WeatherElement = props => {
         />
 
         <View style={airQualityContainer}>
-          <SvgUri
-            width="50"
-            height="50"
+          <SvgCssUri
+            width={50}
+            height={50}
             style={weatherIcon}
-            source={{uri:props.airIcon}}
+            uri={props.airIcon}
+            // source={{uri: props.airIcon}}
           />
 
           <View style={temperatureData}>
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
   },
 
   weatherIcon: {
-    paddingRight: 7,
+    marginRight: 7,
     justifyContent: 'center',
   },
 

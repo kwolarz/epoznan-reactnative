@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  View,
   SafeAreaView,
   Text,
   StyleSheet,
   FlatList,
-  Image,
-  ScrollView,
-  Dimensions,
-  View,
-  Button,
-  Share,
-  TouchableOpacity,
 } from 'react-native';
 import TagElement from '../components/tagElement.js';
 
@@ -34,22 +28,22 @@ const Tag = ({route}) => {
   }, []);
 
   const handleMore = () => {
-    setPage(page += 1);
-    
+    setPage((page += 1));
+
     fetch('http://epoznan.herokuapp.com/news/' + tagID + '/' + page)
-    .then(response => response.json())
-    .then(json => {
-      //console.log(tagName);
-      var newData = [...data, ...json.articles];
-      setData(newData);
-      console.log(data.length, page);
-    })
-    .catch(error => console.error(error))
-    .finally(() => setLoading(false));
-  }
+      .then(response => response.json())
+      .then(json => {
+        //console.log(tagName);
+        var newData = [...data, ...json.articles];
+        setData(newData);
+        console.log(data.length, page);
+      })
+      .catch(error => console.error(error))
+      .finally(() => setLoading(false));
+  };
 
   return (
-    <SafeAreaView style={container}>
+    <View style={container}>
       <Text style={title}>{tagName}</Text>
 
       <FlatList
@@ -66,11 +60,10 @@ const Tag = ({route}) => {
             navigation={navigation}
           />
         )}
-
         onEndReached={handleMore}
         onEndReachedThreshold={0.9}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

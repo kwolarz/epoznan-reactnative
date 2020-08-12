@@ -22,6 +22,7 @@ var yOffset = -30;
 const TagElement = props => {
   const onElementClick = () => {
     console.log(props.tagName);
+    props.navigation.setParams({otherParam: props.tagName})
     props.navigation.push('Tag', {
       tagName: props.tagName,
       tagID: props.tagID,
@@ -97,7 +98,7 @@ const Article = ({route}) => {
 
 
   return (
-    <SafeAreaView style={container}>
+    <View style={container}>
       {isLoading ? (
         <ActivityIndicator style={{padding: '50%'}} />
       ) : (
@@ -214,7 +215,7 @@ const Article = ({route}) => {
           </View>
         </ScrollView>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

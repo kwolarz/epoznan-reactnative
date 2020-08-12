@@ -13,7 +13,7 @@ const Element = props => {
 
   const onElementClick = () => {
     console.log(props.url);
-    props.navigation.navigate('Article', {
+    props.navigation.push('Article', {
       url: props.url,
       navigation: props.navigation,
     });
