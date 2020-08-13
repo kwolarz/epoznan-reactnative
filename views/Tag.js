@@ -8,12 +8,14 @@ import {
   FlatList,
 } from 'react-native';
 import TagElement from '../components/tagElement.js';
+import {useTheme} from '@react-navigation/native';
 
 const Tag = ({route}) => {
   var {tagName, tagID, navigation} = route.params;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const {title, container} = styles;
+  const {colors} = useTheme();
   var [page, setPage] = useState(-1);
 
   useEffect(() => {
@@ -43,12 +45,12 @@ const Tag = ({route}) => {
   };
 
   return (
-    <View style={container}>
-      <Text style={title}>{tagName}</Text>
+    <View style={[container, { backgroundColor: colors.background}]}>
+      {/* <Text style={title}>{tagName}</Text> */}
 
       <FlatList
         data={data}
-        style={{}}
+        style={{backgroundColor: colors.background}}
         keyExtractor={({id}, index) => id}
         columns={2}
         renderItem={({item}) => (
@@ -70,12 +72,13 @@ const Tag = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
 
   title: {
     fontSize: 40,
     fontFamily: 'ProximaNova-Extrabld',
-    paddingTop: 30,
+    //paddingTop: 30,
     paddingLeft: 10,
   },
 });

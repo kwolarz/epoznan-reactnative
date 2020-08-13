@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {setState, useState} from 'react';
 import {SvgUri} from 'react-native-svg';
-import {Platform, Image, Switch} from 'react-native';
+import {Platform, Image, Switch, Button} from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme,
@@ -15,8 +15,6 @@ import Article from './views/Article.js';
 import Tag from './views/Tag.js';
 
 const Stack = createStackNavigator();
-
-
 
 const iosLogo = () => {
   return (
@@ -43,26 +41,43 @@ const LogoSelect = () =>
     android: androidLogo,
   })();
 
-const MyTheme = {
+const Light = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'black',
-    //background: 'black',
-    text: 'blue',
+    text: '#000000',
+    secondText: '#000000',
+    titleText: '#004F8D',
+    border: 'black',
+  },
+};
+
+
+const Dark = {
+  ...DarkTheme,
+  //dark: true,
+  colors: {
+    ...DarkTheme.colors,
+    background: '#15202B',
+    //card: '#15201B',
+    text: '#FFFFFF',
+    secondText: '#8899A6',
+    titleText: '#1B95E0',
+    border: 'white'
   },
 };
 
 const App = () => {
   console.disableYellowBox = true;
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
+  const showAlert = ({route}) => alert(route.params.url);
 
   const scheme = useColorScheme();
 
   return (
     <AppearanceProvider>
-      <NavigationContainer theme={isDarkMode ? DarkTheme : DefaultTheme}>
+      <NavigationContainer theme={isDarkMode ? Dark : Light}>
         <Stack.Navigator
           //screenOptions={{headerShown: false}}
           // props => <LogoTitle {...props} />
@@ -74,17 +89,22 @@ const App = () => {
               headerTitle: <LogoSelect />,
               headerRight: () => (
                 <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleDarkMode}
-                value={isDarkMode}
-              />),
+                  trackColor={{false: '#767577', true: '#81b0ff'}}
+                  // thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleDarkMode}
+                  value={isDarkMode}
+                />
+              ),
               headerShown: true,
             }}
           />
-          <Stack.Screen name="Article" component={Article} />
-          <Stack.Screen name="Tag" component={Tag}  />
+          <Stack.Screen
+            name="Article"
+            component={Article}
+            options={({route}) => ({title: '', headerRight: () => (<Button title='share' onPress={() => alert(route.params.url)}/>),})}
+          />
+          <Stack.Screen name="Tag" component={Tag} options={({route}) => ({title: route.params.tagName })}/>
         </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>

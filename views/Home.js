@@ -18,12 +18,7 @@ import WeatherElement from '../components/weatherElement.js';
 import MovieElement from '../components/movieElement.js';
 import {useTheme} from '@react-navigation/native';
 
-
 const {width} = Dimensions.get('window');
-
-const navigationOptions = ({navigation}) => ({
-  title: navigation.state.params ? navigation.state.params.title : 'Default Title',
-});
 
 const Home = ({navigation}) => {
   const {
@@ -33,7 +28,7 @@ const Home = ({navigation}) => {
     sectionTitle,
     moreArticlesButton,
   } = styles;
-  const { colors } = useTheme();
+  const {colors} = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -119,7 +114,7 @@ const Home = ({navigation}) => {
             />
           </ScrollView>
 
-          <Text style={sectionTitle}>Dziś w Poznaniu</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>Dziś w Poznaniu</Text>
           <WeatherElement
             temperatureIcon={data.temperatureIcon}
             temperatureCurrent={data.temperatureCurrent}
@@ -131,7 +126,7 @@ const Home = ({navigation}) => {
             airState={data.airState}
           />
 
-          <Text style={sectionTitle}>Najnowsze</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>Najnowsze</Text>
 
           <FlatList
             data={data.today}
@@ -149,23 +144,21 @@ const Home = ({navigation}) => {
           <TouchableOpacity
             style={moreArticlesButton}
             onPress={onMoreArticlesButtonClick}>
-            <View style={moreArticles}>
-              <Text style={{color: '#004F8D'}}>Więcej wiadomości</Text>
+            <View style={[moreArticles, {backgroundColor: colors.background, borderColor: colors.titleText}]}>
+              <Text style={{color: colors.titleText}}>Więcej wiadomości</Text>
             </View>
           </TouchableOpacity>
 
-          <Text style={[sectionTitle,]}>W kinie</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>W kinie</Text>
           <FlatList
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={data.inCinema}
             keyExtractor={({id}, index) => id}
-            renderItem={({item}) => (
-              < MovieElement imgUrl={item.imgUrl} />
-            )}
+            renderItem={({item}) => <MovieElement imgUrl={item.imgUrl} />}
           />
 
-          <Text style={sectionTitle}>Kalendarium</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>Kalendarium</Text>
         </ScrollView>
       )}
     </View>

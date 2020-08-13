@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, Image, StyleSheet, View} from 'react-native';
-import { SvgCssUri } from 'react-native-svg';
+import {SvgCssUri} from 'react-native-svg';
+import {useTheme} from '@react-navigation/native';
 
 const WeatherElement = props => {
   const {
@@ -14,9 +15,11 @@ const WeatherElement = props => {
     airQualityContainer,
   } = styles;
 
+  const {colors} = useTheme();
+
   return (
     <View style={container}>
-      <View style={weatherContainer}>
+      <View style={[weatherContainer, {backgroundColor: colors.background}]}>
         <View style={temperatureContainer}>
           <SvgCssUri
             width={50}
@@ -24,23 +27,23 @@ const WeatherElement = props => {
             style={weatherIcon}
             uri={props.temperatureIcon}
           />
-          
+
           <View style={temperatureData}>
             <View style={temperature}>
-              <Text style={currentTemperatureText}>
+              <Text style={[currentTemperatureText, {color: colors.text}]}>
                 {props.temperatureCurrent}
               </Text>
-              <Text style={currentTemperatureText}>{props.temperatureMin}</Text>
+              <Text style={[currentTemperatureText, {color: colors.text}]}>{props.temperatureMin}</Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>Opady: </Text>
-              <Text style={{fontSize: 11}}>{props.rain}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>Opady: </Text>
+              <Text style={{fontSize: 11, color: colors.text}}>{props.rain}</Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>Wiatr do: </Text>
-              <Text style={{fontSize: 11}}>{props.wind}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>Wiatr do: </Text>
+              <Text style={{fontSize: 11, color: colors.text}}>{props.wind}</Text>
             </View>
           </View>
         </View>
@@ -48,7 +51,7 @@ const WeatherElement = props => {
         {/* ADD here a vertical separator */}
         <View
           style={{
-            borderBottomColor: 'grey',
+            borderLeftColor: colors.border,
             opacity: 0.2,
             marginTop: '2%',
             height: '80%',
@@ -70,16 +73,16 @@ const WeatherElement = props => {
 
           <View style={temperatureData}>
             <View style={temperature}>
-              <Text style={currentTemperatureText}>Stan powietrza</Text>
+              <Text style={[currentTemperatureText, {color: colors.text}]}>Stan powietrza</Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>PM2.5 </Text>
-              <Text style={{fontSize: 11}}>{props.airQuality}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>PM2.5 </Text>
+              <Text style={{fontSize: 11, color: colors.text}}>{props.airQuality}</Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11}}>{props.airState}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>{props.airState}</Text>
             </View>
           </View>
         </View>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, Image, StyleSheet, View} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 const Element = props => {
   const {
@@ -11,6 +12,8 @@ const Element = props => {
     touchContainer,
   } = styles;
 
+  const {colors} = useTheme();
+
   const onElementClick = () => {
     console.log(props.url);
     props.navigation.push('Article', {
@@ -21,10 +24,10 @@ const Element = props => {
 
   return (
     <View style={container}>
-      <TouchableOpacity style={touchContainer} onPress={onElementClick}>
+      <TouchableOpacity style={[touchContainer, {backgroundColor: colors.background}]} onPress={onElementClick}>
         <View style={textViewStyle}>
-          <Text style={publishDateStyle}>{props.publishDate}</Text>
-          <Text style={titleStyle}>{props.title}</Text>
+          <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.publishDate}</Text>
+          <Text style={[titleStyle, {color: colors.text}]}>{props.title}</Text>
         </View>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />
       </TouchableOpacity>
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
     //paddingRight: 5,
     padding: 1,
     paddingBottom: 3,
-    fontFamily: 'ProximaNovaT-Thin', //alt light
+    fontFamily: 'ProximaNova-Regular', //alt light
     fontSize: 14,
   },
   imageStyle: {

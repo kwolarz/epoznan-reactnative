@@ -14,15 +14,17 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
+import {useTheme} from '@react-navigation/native';
 import {WebView} from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 
 var yOffset = -30;
 
 const TagElement = props => {
+  const {colors} = useTheme();
   const onElementClick = () => {
     console.log(props.tagName);
-    props.navigation.setParams({otherParam: props.tagName})
+    // props.navigation.setParams({otherParam: props.tagName});
     props.navigation.push('Tag', {
       tagName: props.tagName,
       tagID: props.tagID,
@@ -32,13 +34,13 @@ const TagElement = props => {
 
   return (
     <TouchableOpacity onPress={onElementClick}>
-      <Text style={styles.tagText}>{props.tagName}</Text>
+      <Text style={[styles.tagText, {color: colors.titleText}]}>{props.tagName}</Text>
     </TouchableOpacity>
   );
 };
 
 const Article = ({route}) => {
-  const {url, navigation} = route.params;
+  var {url, navigation} = route.params;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const {
@@ -58,6 +60,7 @@ const Article = ({route}) => {
     tagText,
     tagList,
   } = styles;
+  const {colors} = useTheme();
 
   let JS =
     '<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
@@ -96,7 +99,6 @@ const Article = ({route}) => {
       .finally(() => setLoading(false));
   }, []);
 
-
   return (
     <View style={container}>
       {isLoading ? (
@@ -121,17 +123,17 @@ const Article = ({route}) => {
               />
             </View>
           </TouchableOpacity>
-          <View style={postContainer}>
-            <Text style={titleStyle}>{data.title}</Text>
+          <View style={[postContainer, {backgroundColor: colors.background}]}>
+            <Text style={[titleStyle, {color: colors.text}]}>{data.title}</Text>
             <View style={dateContainer}>
-              <Text style={dateStyle}>
+              <Text style={[dateStyle, {color: colors.text}]}>
                 {data.publishDate + ' | ' + data.author}
               </Text>
             </View>
 
             <View
               style={{
-                borderBottomColor: 'grey',
+                borderBottomColor: colors.border,
                 //itemsalign: 'center',
                 marginLeft: '3%',
                 opacity: 0.6,
@@ -144,11 +146,11 @@ const Article = ({route}) => {
             />
 
             <View style={descContainer}>
-              <Text style={descStyle}>{data.description}</Text>
+              <Text style={[descStyle, {color: colors.text}]}>{data.description}</Text>
             </View>
 
             <View style={textContainer}>
-              <Text style={textStyle}>{data.text}</Text>
+              <Text style={[textStyle, {color: colors.text}]}>{data.text}</Text>
             </View>
 
             {/* <WebView style={{height: 700, width: screenWidth}} textZoom={150} source={{html: source}} javaScriptEnabled={true} /> */}
@@ -175,12 +177,14 @@ const Article = ({route}) => {
               viewportContent={'width=device-width, user-scalable=no'}
             /> */}
 
-            
             <FlatList
               data={data.imagesURL}
               keyExtractor={({id}, index) => id}
               renderItem={({item}) => (
-                <Image style={{width: '100%', height: 200, marginTop: 10,}} source={{uri: item.imgUrl}} />
+                <Image
+                  style={{width: '100%', height: 200, marginTop: 10}}
+                  source={{uri: item.imgUrl}}
+                />
               )}
             />
 

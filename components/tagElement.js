@@ -7,11 +7,13 @@ import {
   View,
   Dimensions,
 } from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 
-const TagElement =  props => {
+const TagElement = props => {
   const {container, topHalf, imageStyle, bottomHalf, title} = styles;
+  const {colors} = useTheme();
 
   const onElementClick = () => {
     console.log(props.url);
@@ -22,12 +24,12 @@ const TagElement =  props => {
   };
 
   return (
-    <TouchableOpacity style={container} onPress={onElementClick}>
+    <TouchableOpacity style={[container, {backgroundColor: colors.background}]} onPress={onElementClick}>
       <View style={topHalf}>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />
       </View>
       <View style={bottomHalf}>
-        <Text style={title} numberOfLines={4}>
+        <Text style={[title, {color: colors.text}]} numberOfLines={4}>
           {props.title}
         </Text>
       </View>
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     height: '100%',
     width: '100%',
+    resizeMode: 'cover',
   },
 
   bottomHalf: {
