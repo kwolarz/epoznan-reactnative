@@ -2,14 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 const MovieElement = props => {
-  const {
-    container,
-    textViewStyle,
-    imageStyle,
-    publishDateStyle,
-    titleStyle,
-    touchContainer,
-  } = styles;
+  const {container, imageStyle, touchContainer} = styles;
 
   return (
     <View style={container}>

@@ -24,9 +24,13 @@ const Element = props => {
 
   return (
     <View style={container}>
-      <TouchableOpacity style={[touchContainer, {backgroundColor: colors.background}]} onPress={onElementClick}>
+      <TouchableOpacity
+        style={[touchContainer, {backgroundColor: colors.background}]}
+        onPress={onElementClick}>
         <View style={textViewStyle}>
-          <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.publishDate}</Text>
+          <Text style={[publishDateStyle, {color: colors.secondText}]}>
+            {props.publishDate}
+          </Text>
           <Text style={[titleStyle, {color: colors.text}]}>{props.title}</Text>
         </View>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />

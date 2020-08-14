@@ -34,7 +34,9 @@ const TagElement = props => {
 
   return (
     <TouchableOpacity onPress={onElementClick}>
-      <Text style={[styles.tagText, {color: colors.titleText}]}>{props.tagName}</Text>
+      <Text style={[styles.tagText, {color: colors.titleText}]}>
+        {props.tagName}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -110,7 +112,7 @@ const Article = ({route}) => {
             yOffset = event.nativeEvent.contentOffset.y;
           }}>
           <Image style={topImageStyle} source={{uri: data.topImageURL}} />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={shareButton}
             onPress={onShare}
             title="Share"
@@ -122,7 +124,7 @@ const Article = ({route}) => {
                 tintColor="black"
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <View style={[postContainer, {backgroundColor: colors.background}]}>
             <Text style={[titleStyle, {color: colors.text}]}>{data.title}</Text>
             <View style={dateContainer}>
@@ -146,7 +148,9 @@ const Article = ({route}) => {
             />
 
             <View style={descContainer}>
-              <Text style={[descStyle, {color: colors.text}]}>{data.description}</Text>
+              <Text style={[descStyle, {color: colors.text}]}>
+                {data.description}
+              </Text>
             </View>
 
             <View style={textContainer}>

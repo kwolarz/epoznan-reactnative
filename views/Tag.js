@@ -45,7 +45,7 @@ const Tag = ({route}) => {
   };
 
   return (
-    <View style={[container, { backgroundColor: colors.background}]}>
+    <View style={[container, {backgroundColor: colors.background}]}>
       {/* <Text style={title}>{tagName}</Text> */}
 
       <FlatList
@@ -72,7 +72,6 @@ const Tag = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
   },
 
   title: {

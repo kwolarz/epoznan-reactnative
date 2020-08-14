@@ -33,17 +33,23 @@ const WeatherElement = props => {
               <Text style={[currentTemperatureText, {color: colors.text}]}>
                 {props.temperatureCurrent}
               </Text>
-              <Text style={[currentTemperatureText, {color: colors.text}]}>{props.temperatureMin}</Text>
+              <Text style={[currentTemperatureText, {color: colors.text}]}>
+                {props.temperatureMin}
+              </Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11, color: colors.text}}>Opady: </Text>
-              <Text style={{fontSize: 11, color: colors.text}}>{props.rain}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>
+                {props.rain}
+              </Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11, color: colors.text}}>Wiatr do: </Text>
-              <Text style={{fontSize: 11, color: colors.text}}>{props.wind}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>
+                {props.wind}
+              </Text>
             </View>
           </View>
         </View>
@@ -73,16 +79,22 @@ const WeatherElement = props => {
 
           <View style={temperatureData}>
             <View style={temperature}>
-              <Text style={[currentTemperatureText, {color: colors.text}]}>Stan powietrza</Text>
+              <Text style={[currentTemperatureText, {color: colors.text}]}>
+                Stan powietrza
+              </Text>
             </View>
 
             <View style={temperature}>
               <Text style={{fontSize: 11, color: colors.text}}>PM2.5 </Text>
-              <Text style={{fontSize: 11, color: colors.text}}>{props.airQuality}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>
+                {props.airQuality}
+              </Text>
             </View>
 
             <View style={temperature}>
-              <Text style={{fontSize: 11, color: colors.text}}>{props.airState}</Text>
+              <Text style={{fontSize: 11, color: colors.text}}>
+                {props.airState}
+              </Text>
             </View>
           </View>
         </View>

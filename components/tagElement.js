@@ -24,7 +24,9 @@ const TagElement = props => {
   };
 
   return (
-    <TouchableOpacity style={[container, {backgroundColor: colors.background}]} onPress={onElementClick}>
+    <TouchableOpacity
+      style={[container, {backgroundColor: colors.background}]}
+      onPress={onElementClick}>
       <View style={topHalf}>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />
       </View>

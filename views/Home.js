@@ -114,7 +114,9 @@ const Home = ({navigation}) => {
             />
           </ScrollView>
 
-          <Text style={[sectionTitle, {color: colors.titleText}]}>Dziś w Poznaniu</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>
+            Dziś w Poznaniu
+          </Text>
           <WeatherElement
             temperatureIcon={data.temperatureIcon}
             temperatureCurrent={data.temperatureCurrent}
@@ -126,7 +128,9 @@ const Home = ({navigation}) => {
             airState={data.airState}
           />
 
-          <Text style={[sectionTitle, {color: colors.titleText}]}>Najnowsze</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>
+            Najnowsze
+          </Text>
 
           <FlatList
             data={data.today}
@@ -144,7 +148,14 @@ const Home = ({navigation}) => {
           <TouchableOpacity
             style={moreArticlesButton}
             onPress={onMoreArticlesButtonClick}>
-            <View style={[moreArticles, {backgroundColor: colors.background, borderColor: colors.titleText}]}>
+            <View
+              style={[
+                moreArticles,
+                {
+                  backgroundColor: colors.background,
+                  borderColor: colors.titleText,
+                },
+              ]}>
               <Text style={{color: colors.titleText}}>Więcej wiadomości</Text>
             </View>
           </TouchableOpacity>
@@ -158,7 +169,9 @@ const Home = ({navigation}) => {
             renderItem={({item}) => <MovieElement imgUrl={item.imgUrl} />}
           />
 
-          <Text style={[sectionTitle, {color: colors.titleText}]}>Kalendarium</Text>
+          <Text style={[sectionTitle, {color: colors.titleText}]}>
+            Kalendarium
+          </Text>
         </ScrollView>
       )}
     </View>

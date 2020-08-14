@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {setState, useState} from 'react';
 import {SvgUri} from 'react-native-svg';
-import {Platform, Image, Switch, Button} from 'react-native';
+import {Platform, Image, Switch, Button, Share} from 'react-native';
 import {
   NavigationContainer,
   DefaultTheme,
@@ -52,7 +52,6 @@ const Light = {
   },
 };
 
-
 const Dark = {
   ...DarkTheme,
   //dark: true,
@@ -63,17 +62,37 @@ const Dark = {
     text: '#FFFFFF',
     secondText: '#8899A6',
     titleText: '#1B95E0',
-    border: 'white'
+    border: 'white',
   },
+};
+
+const onShare = async ({url}) => {
+  try {
+    const result = await Share.share({
+      message: 'https://epoznan.pl/' + String(url),
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+    }
+  } catch (error) {
+    alert(error.message);
+  }
 };
 
 const App = () => {
   console.disableYellowBox = true;
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const scheme = useColorScheme();
+  const [isDarkMode, setIsDarkMode] = useState(
+    scheme === 'dark' ? true : false,
+  );
   const toggleDarkMode = () => setIsDarkMode(previousState => !previousState);
   const showAlert = ({route}) => alert(route.params.url);
-
-  const scheme = useColorScheme();
 
   return (
     <AppearanceProvider>
@@ -102,9 +121,31 @@ const App = () => {
           <Stack.Screen
             name="Article"
             component={Article}
-            options={({route}) => ({title: '', headerRight: () => (<Button title='share' onPress={() => alert(route.params.url)}/>),})}
+            options={({route}) => ({
+              title: '',
+              headerTransparent: false,
+              headerRightContainerStyle: {
+                paddingRight: 5,
+                flexDirection: 'row',
+              },
+              headerRight: () =>
+                // <TouchableOpacity onPress={() => alert(route.params.url)} >
+                //   <Image title={'share'} source={require('./assets/share2.png')} />
+
+                // </TouchableOpacity>
+                [
+                  <Button
+                    title="Share"
+                    onPress={() => onShare({url: route.params.url})}
+                  />,
+                ],
+            })}
           />
-          <Stack.Screen name="Tag" component={Tag} options={({route}) => ({title: route.params.tagName })}/>
+          <Stack.Screen
+            name="Tag"
+            component={Tag}
+            options={({route}) => ({title: route.params.tagName})}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>
