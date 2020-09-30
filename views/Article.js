@@ -45,6 +45,7 @@ const Article = ({route}) => {
   var {url, navigation} = route.params;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [commentsVisible, setCommentsVisible] = useState(false);
   const {
     topImageStyle,
     container,
@@ -100,6 +101,8 @@ const Article = ({route}) => {
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+
+  const onShowComments = () => {setCommentsVisible(true);}
 
   return (
     <View style={container}>
@@ -191,6 +194,34 @@ const Article = ({route}) => {
                 />
               )}
             />
+
+            <TouchableOpacity onPress={onShowComments}>
+              <Text>Zobacz komentarze</Text>
+            </TouchableOpacity>
+
+            <Modal
+              animationType="slide"
+              transparent={false} 
+              visible={commentsVisible}
+              onRequestClose={() => {
+                console.log("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>Hello World!</Text>
+
+                  <TouchableOpacity
+                    style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                    onPress={() => {
+                      setCommentsVisible(!commentsVisible);
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Hide Modal</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
 
             <View
               style={{

@@ -16,6 +16,7 @@ import Element from '../components/articleElement.js';
 import BigElement from '../components/homeArticleElement.js';
 import WeatherElement from '../components/weatherElement.js';
 import MovieElement from '../components/movieElement.js';
+import Event from '../components/eventElement.js'
 import {useTheme} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
@@ -172,6 +173,23 @@ const Home = ({navigation}) => {
           <Text style={[sectionTitle, {color: colors.titleText}]}>
             Kalendarium
           </Text>
+          
+          <FlatList
+            data={data.todayEvents} //TODO: change this to futureEvents
+            keyExtractor={({id}, index) => id}
+            renderItem={({item}) => (
+              <Event
+                title={item.title}
+                category={item.category}
+                imgUrl={item.imgUrl}
+                url={item.url}
+                date={item.infoDate}
+                location={item.infoLocation}
+                navigation={navigation}
+              />
+            )}
+          />
+
         </ScrollView>
       )}
     </View>
