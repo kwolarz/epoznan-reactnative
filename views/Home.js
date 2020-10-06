@@ -13,9 +13,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Element from '../components/articleElement.js';
-import BigElement from '../components/homeArticleElement.js';
-import WeatherElement from '../components/weatherElement.js';
-import MovieElement from '../components/movieElement.js';
+import TopArticle from '../components/homeArticleElement.js';
+import Weather from '../components/weatherElement.js';
+import Movie from '../components/movieElement.js';
 import Event from '../components/eventElement.js'
 import {useTheme} from '@react-navigation/native';
 
@@ -92,21 +92,21 @@ const Home = ({navigation}) => {
               bottom: 0,
               right: 30,
             }}>
-            <BigElement
+            <TopArticle
               imgUrl={data.middlePosts[0].imgUrl}
               title={data.middlePosts[0].title}
               url={data.middlePosts[0].url}
               update={data.middlePosts[0].update}
               navigation={navigation}
             />
-            <BigElement
+            <TopArticle
               imgUrl={data.middlePosts[1].imgUrl}
               title={data.middlePosts[1].title}
               url={data.middlePosts[1].url}
               update={data.middlePosts[1].update}
               navigation={navigation}
             />
-            <BigElement
+            <TopArticle
               imgUrl={data.middlePosts[2].imgUrl}
               title={data.middlePosts[2].title}
               url={data.middlePosts[2].url}
@@ -118,7 +118,7 @@ const Home = ({navigation}) => {
           <Text style={[sectionTitle, {color: colors.titleText}]}>
             Dziś w Poznaniu
           </Text>
-          <WeatherElement
+          <Weather
             temperatureIcon={data.temperatureIcon}
             temperatureCurrent={data.temperatureCurrent}
             temperatureMin={data.temperatureMin}
@@ -168,7 +168,7 @@ const Home = ({navigation}) => {
             data={data.inCinema}
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
-              <MovieElement 
+              <Movie 
                 imgUrl={item.imgUrl}
                 url={item.url}
                 navigation={navigation}

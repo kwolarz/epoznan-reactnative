@@ -2,13 +2,13 @@ import React from 'react';
 import {TouchableOpacity, Text, Image, StyleSheet, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-const Element = props => {
+const Article = props => {
   const {
     container,
-    textViewStyle,
-    imageStyle,
-    publishDateStyle,
-    titleStyle,
+    textContainer,
+    articleImage,
+    publishDateText,
+    titleText,
     touchContainer,
   } = styles;
 
@@ -27,13 +27,15 @@ const Element = props => {
       <TouchableOpacity
         style={[touchContainer, {backgroundColor: colors.background}]}
         onPress={onElementClick}>
-        <View style={textViewStyle}>
-          <Text style={[publishDateStyle, {color: colors.secondText}]}>
+        {/* left side of component with title and publish date */}
+        <View style={textContainer}>
+          <Text style={[publishDateText, {color: colors.secondText}]}>
             {props.publishDate}
           </Text>
-          <Text style={[titleStyle, {color: colors.text}]}>{props.title}</Text>
+          <Text style={[titleText, {color: colors.text}]}>{props.title}</Text>
         </View>
-        <Image style={imageStyle} source={{uri: props.imgUrl}} />
+
+        <Image style={articleImage} source={{uri: props.imgUrl}} />
       </TouchableOpacity>
     </View>
   );
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderRadius: 10,
     padding: 10,
-    backgroundColor: 'white',
+    //backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -62,18 +64,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 10,
   },
-  textViewStyle: {
+  textContainer: {
     paddingRight: 10,
     fontSize: 14,
     textAlign: 'left',
     width: '72%',
   },
-  titleStyle: {
+  titleText: {
     marginTop: 1,
     fontSize: 18,
     fontFamily: 'ProximaNova-Bold',
   },
-  publishDateStyle: {
+  publishDateText: {
     alignSelf: 'flex-start',
     //paddingRight: 5,
     padding: 1,
@@ -81,12 +83,12 @@ const styles = StyleSheet.create({
     fontFamily: 'ProximaNova-Regular', //alt light
     fontSize: 14,
   },
-  imageStyle: {
+  articleImage: {
     height: 100,
     width: 100,
     borderRadius: 11,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 });
 
-export default Element;
+export default Article;

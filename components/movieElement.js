@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, View, TouchableOpacity} from 'react-native';
 
-const MovieElement = props => {
-  const {container, imageStyle, touchContainer} = styles;
+const Movie = props => {
+  const {container, poster, touchContainer} = styles;
   
   const onElementClick = () => {
     console.log(props.url);
@@ -15,7 +15,7 @@ const MovieElement = props => {
   return (
     <TouchableOpacity style={container} onPress={onElementClick}>
       <View style={touchContainer}>
-        <Image style={imageStyle} source={{uri: props.imgUrl}} />
+        <Image style={poster} source={{uri: props.imgUrl}} />
       </View>
     </TouchableOpacity>
   );
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 10,
   },
-  imageStyle: {
+  poster: {
     height: 150,
     width: 105,
     borderRadius: 11,
   },
 });
 
-export default MovieElement;
+export default Movie;

@@ -11,7 +11,7 @@ import {useTheme} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 
-const BigElement = props => {
+const TopArticle = props => {
   const {container, topHalf, imageStyle, bottomHalf, title} = styles;
   const {colors} = useTheme();
 
@@ -27,9 +27,12 @@ const BigElement = props => {
     <TouchableOpacity
       style={[container, {backgroundColor: colors.background}]}
       onPress={onElementClick}>
+      {/* top part with image */}
       <View style={topHalf}>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />
       </View>
+
+      {/* bottom part with title */}
       <View style={bottomHalf}>
         <Text style={[title, {color: colors.text}]} numberOfLines={4}>
           {props.title}
@@ -42,7 +45,7 @@ const BigElement = props => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    backgroundColor: 'white',
+    //backgroundColor: 'white',
     width: width - 80,
     margin: 10,
     height: 270,
@@ -86,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BigElement;
+export default TopArticle;

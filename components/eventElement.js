@@ -7,10 +7,10 @@ const Event = props => {
     const {
         container,
         touchContainer,
-        textViewStyle,
-        titleStyle,
-        publishDateStyle,
-        imageStyle,
+        infoContainer,
+        titleText,
+        infoText,
+        eventImage,
         descContainer,
         descIcon,
     } = styles;
@@ -18,24 +18,28 @@ const Event = props => {
     return (
         <View style={container}>
           <View style={[touchContainer, {backgroundColor: colors.background}]}>
-            <Image style={imageStyle} source={{uri: props.imgUrl}} />
-            <View style={textViewStyle}>
-              <Text style={[titleStyle, {color: colors.text}]}>{props.title}</Text>
-              {/* <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.category}</Text> */}
+            <Image style={eventImage} source={{uri: props.imgUrl}} />
 
+            {/* detailed information view */}
+            <View style={infoContainer}>
+              <Text style={[titleText, {color: colors.text}]}>{props.title}</Text>
+
+              {/* date and time of the event */}
               <View style={descContainer}>
                   <Image style={descIcon} tintColor={colors.secondText} source={{uri: 'https://www.iconfinder.com/data/icons/pittogrammi/142/10-512.png'}} />
-                  <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.date}</Text>
+                  <Text style={[infoText, {color: colors.secondText}]}>{props.date}</Text>
               </View>
 
+              {/* place of the event */}
               <View style={descContainer}>
                   <Image style={descIcon} tintColor={colors.secondText} source={{uri: 'https://static.thenounproject.com/png/11205-200.png'}} />
-                  <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.location}</Text>
+                  <Text style={[infoText, {color: colors.secondText}]}>{props.location}</Text>
               </View>
 
+              {/* category of the event */}
               <View style={descContainer}>
                   <Image style={descIcon} tintColor={colors.secondText} source={{uri: 'https://i.pinimg.com/originals/6c/28/c1/6c28c1644b26303b67cd2879355e8d0a.png'}} />
-                  <Text style={[publishDateStyle, {color: colors.secondText}]}>{props.category}</Text>
+                  <Text style={[infoText, {color: colors.secondText}]}>{props.category}</Text>
               </View>
             </View>
           </View>
@@ -66,19 +70,19 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10,
       paddingBottom: 10,
     },
-    textViewStyle: {
+    infoContainer: {
       paddingLeft: 10,
       paddingTop: 5,
       fontSize: 14,
       textAlign: 'left',
       width: '69%',
     },
-    titleStyle: {
+    titleText: {
       marginTop: 1,
       fontSize: 18,
       fontFamily: 'ProximaNova-Bold',
     },
-    publishDateStyle: {
+    infoText: {
       alignSelf: 'flex-start',
       //paddingRight: 5,
       padding: 1,
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
       fontFamily: 'ProximaNova-Regular', //alt light
       fontSize: 14,
     },
-    imageStyle: {
+    eventImage: {
       height: 100,
       width: 100,
       borderRadius: 50,

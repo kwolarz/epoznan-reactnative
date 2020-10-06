@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
-  SafeAreaView,
   Text,
   StyleSheet,
   FlatList,
@@ -9,7 +8,6 @@ import {
   ScrollView,
   Dimensions,
   View,
-  Button,
   Share,
   TouchableOpacity,
   Modal,
@@ -17,8 +15,6 @@ import {
 import {useTheme} from '@react-navigation/native';
 import {WebView} from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview';
-
-var yOffset = -30;
 
 const TagElement = props => {
   const {colors} = useTheme();
@@ -65,12 +61,14 @@ const Article = ({route}) => {
   } = styles;
   const {colors} = useTheme();
 
+  const [yOffset, setYOffset] = useState(-30);
+
   let JS =
     '<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
   let source =
     JS +
     '<blockquote class="twitter-tweet" data-lang="pl">&#13;\n\t<p dir="ltr" lang="pl">&#13;\n\t\tPoparcie w okręgach dla <a href="https://twitter.com/pisorgpl?ref_src=twsrc%5Etfw">@pisorgpl</a> na koniec lipca 2018 (zdecydowani wyborcy) <a href="https://t.co/tFRfi1pd95">pic.twitter.com/tFRfi1pd95</a></p>&#13;\n\t— Marcin Palade (@MarcinPalade) <a href="https://twitter.com/MarcinPalade/status/1026459290125651968?ref_src=twsrc%5Etfw">6 sierpnia 2018</a></blockquote>&#13;\n';
-  const {screenWidth} = Dimensions.get('window').width;
+  const {size} = Dimensions.get('window');
 
   const onShare = async () => {
     try {
@@ -107,12 +105,12 @@ const Article = ({route}) => {
   return (
     <View style={container}>
       {isLoading ? (
-        <ActivityIndicator style={{padding: '50%'}} />
+        <ActivityIndicator style={{margin: '24%'}} />
       ) : (
         <ScrollView
           style={scrollContainer}
           onScroll={event => {
-            yOffset = event.nativeEvent.contentOffset.y;
+          //  setYOffset(event.nativeEvent.contentOffset.y);
           }}>
           <Image style={topImageStyle} source={{uri: data.topImageURL}} />
           {/* <TouchableOpacity
@@ -128,7 +126,7 @@ const Article = ({route}) => {
               />
             </View>
           </TouchableOpacity> */}
-          <View style={[postContainer, {backgroundColor: colors.background}]}>
+          <View style={[postContainer, {backgroundColor: colors.background, marginTop: -yOffset}]}>
             <Text style={[titleStyle, {color: colors.text}]}>{data.title}</Text>
             <View style={dateContainer}>
               <Text style={[dateStyle, {color: colors.text}]}>

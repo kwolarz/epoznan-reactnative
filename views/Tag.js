@@ -2,12 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   View,
-  SafeAreaView,
-  Text,
   StyleSheet,
   FlatList,
 } from 'react-native';
-import TagElement from '../components/tagElement.js';
+import TagArticle from '../components/tagElement.js';
 import {useTheme} from '@react-navigation/native';
 
 const Tag = ({route}) => {
@@ -52,9 +50,9 @@ const Tag = ({route}) => {
         data={data}
         style={{backgroundColor: colors.background}}
         keyExtractor={({id}, index) => id}
-        columns={2}
+        //columns={2}
         renderItem={({item}) => (
-          <TagElement
+          <TagArticle
             imgUrl={item.imgUrl}
             title={item.title}
             url={item.url}

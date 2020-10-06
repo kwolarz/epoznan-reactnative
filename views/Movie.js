@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
-  SectionList,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 

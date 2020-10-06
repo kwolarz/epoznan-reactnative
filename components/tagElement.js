@@ -5,13 +5,10 @@ import {
   Image,
   StyleSheet,
   View,
-  Dimensions,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
-
-const TagElement = props => {
+const TagArticle = props => {
   const {container, topHalf, imageStyle, bottomHalf, title} = styles;
   const {colors} = useTheme();
 
@@ -42,9 +39,8 @@ const TagElement = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    width: width - 20,
+    width: '95%',
     margin: 10,
-    height: 300,
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: 'grey',
@@ -63,8 +59,7 @@ const styles = StyleSheet.create({
   },
 
   topHalf: {
-    height: '60%',
-    //paddingBottom: 10,
+    height: 165,
   },
 
   imageStyle: {
@@ -76,17 +71,14 @@ const styles = StyleSheet.create({
   },
 
   bottomHalf: {
-    height: '40%',
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 10
   },
 
   title: {
-    fontSize: 21,
+    fontSize: 22,
     fontFamily: 'ProximaNova-Bold', //alt bold
     //maxHeight: 95,
   },
 });
 
-export default TagElement;
+export default TagArticle;
