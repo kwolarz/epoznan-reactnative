@@ -167,15 +167,21 @@ const Home = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             data={data.inCinema}
             keyExtractor={({id}, index) => id}
-            renderItem={({item}) => <MovieElement imgUrl={item.imgUrl} />}
+            renderItem={({item}) => (
+              <MovieElement 
+                imgUrl={item.imgUrl}
+                url={item.url}
+                navigation={navigation}
+              />
+            )}
           />
 
-          <Text style={[sectionTitle, {color: colors.titleText}]}>
+          <Text style={[sectionTitle, {color: colors.titleText, paddingTop: 10}]}>
             Kalendarium
           </Text>
           
           <FlatList
-            data={data.todayEvents} //TODO: change this to futureEvents
+            data={data.futureEvents} //TODO: change this to futureEvents
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
               <Event

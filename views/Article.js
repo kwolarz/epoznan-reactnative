@@ -195,9 +195,9 @@ const Article = ({route}) => {
               )}
             />
 
-            <TouchableOpacity onPress={onShowComments}>
+            {/* <TouchableOpacity onPress={onShowComments}>
               <Text>Zobacz komentarze</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Modal
               animationType="slide"
@@ -345,6 +345,7 @@ const styles = StyleSheet.create({
 
   tagList: {
     //padding: 10,
+    marginBottom: 20,
   },
 });
 

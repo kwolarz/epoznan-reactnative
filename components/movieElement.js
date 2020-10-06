@@ -1,15 +1,23 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View, TouchableOpacity} from 'react-native';
 
 const MovieElement = props => {
   const {container, imageStyle, touchContainer} = styles;
+  
+  const onElementClick = () => {
+    console.log(props.url);
+    props.navigation.push('Movie', {
+      url: props.url,
+      navigation: props.navigation,
+    });
+  };
 
   return (
-    <View style={container}>
+    <TouchableOpacity style={container} onPress={onElementClick}>
       <View style={touchContainer}>
         <Image style={imageStyle} source={{uri: props.imgUrl}} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

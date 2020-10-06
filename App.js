@@ -13,6 +13,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from './views/Home.js';
 import Article from './views/Article.js';
 import Tag from './views/Tag.js';
+import Movie from './views/Movie.js';
 
 const Stack = createStackNavigator();
 
@@ -45,10 +46,12 @@ const Light = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
+    //background: 'white',
     text: '#000000',
     secondText: '#000000',
     titleText: '#004F8D',
     border: 'black',
+    item: 'grey',
   },
 };
 
@@ -63,6 +66,7 @@ const Dark = {
     secondText: '#8899A6',
     titleText: '#1B95E0',
     border: 'white',
+    item: 'white',
   },
 };
 
@@ -124,10 +128,15 @@ const App = () => {
             options={({route}) => ({
               title: '',
               headerTransparent: false,
+              //hide
               headerRightContainerStyle: {
                 paddingRight: 5,
                 flexDirection: 'row',
               },
+              // headerBackTitle: "",
+              headerBackTitleVisible: false,
+              
+              // headerLeft: false,
               headerRight: () =>
                 // <TouchableOpacity onPress={() => alert(route.params.url)} >
                 //   <Image title={'share'} source={require('./assets/share2.png')} />
@@ -135,8 +144,9 @@ const App = () => {
                 // </TouchableOpacity>
                 [
                   <Button
-                    title="Share"
+                    title="Udostępnij"
                     onPress={() => onShare({url: route.params.url})}
+                    // color="white"
                   />,
                 ],
             })}
@@ -144,8 +154,9 @@ const App = () => {
           <Stack.Screen
             name="Tag"
             component={Tag}
-            options={({route}) => ({title: route.params.tagName})}
+            options={({route}) => ({title: route.params.tagName, headerBackTitleVisible: false,})}
           />
+          <Stack.Screen name="Movie" component={Movie} options={({route}) => ({title: '', headerTransparent: true, headerBackTitleVisible: false,})}/>
         </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>
