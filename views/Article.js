@@ -126,7 +126,7 @@ const Article = ({route}) => {
               />
             </View>
           </TouchableOpacity> */}
-          <View style={[postContainer, {backgroundColor: colors.background, marginTop: -yOffset}]}>
+          <View style={[postContainer, {backgroundColor: colors.background, }]}>
             <Text style={[titleStyle, {color: colors.text}]}>{data.title}</Text>
             <View style={dateContainer}>
               <Text style={[dateStyle, {color: colors.text}]}>

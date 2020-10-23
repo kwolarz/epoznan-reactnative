@@ -12,7 +12,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import Element from '../components/articleElement.js';
+import Article from '../components/articleElement.js';
 import TopArticle from '../components/homeArticleElement.js';
 import Weather from '../components/weatherElement.js';
 import Movie from '../components/movieElement.js';
@@ -39,7 +39,7 @@ const Home = ({navigation}) => {
       .then(response => response.json())
       .then(json => setData(json))
       .catch(error => console.error(error))
-      .finally(() => setLoading(false));
+      .finally(() => setLoading(true));
   }, []);
 
   function getData() {
@@ -69,7 +69,11 @@ const Home = ({navigation}) => {
   return (
     <View style={[container, {backgroundColor: colors.background}]}>
       {isLoading ? (
-        <ActivityIndicator />
+        //<ActivityIndicator />
+        <View style={{backgroundColor: 'white'}}>
+          <Image style={{alignSelf: 'center', width: '100%', height: '58%', marginTop: '35%'}} source={{uri: 'https://lh3.googleusercontent.com/proxy/9JdwdM--4a2sbSe8xwriO-8hZ5kUc56f0ynD2o1vDJi2AA__3ca-QfZa4XGgYRz0OU2RsEtYsRhs0qCupzhcvCs'}}/>
+          <Text style={{fontSize: 25, fontFamily: 'ProximaNova-Bold', marginTop: 15, alignSelf: 'center'}}>Twój organizer</Text>
+        </View>
       ) : (
         <ScrollView
           refreshControl={
@@ -137,7 +141,7 @@ const Home = ({navigation}) => {
             data={data.today}
             keyExtractor={({id}, index) => id}
             renderItem={({item}) => (
-              <Element
+              <Article
                 title={item.title}
                 publishDate={item.publishDate}
                 imgUrl={item.imgUrl}
